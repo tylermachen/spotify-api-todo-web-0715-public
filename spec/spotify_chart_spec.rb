@@ -69,20 +69,20 @@ describe SpotifyChart do
     end
   end
 
-  describe "#fetch_track_album_artist" do
+  describe "#get_first_track_info" do
      
     let(:us_most_streamed) { JSON.parse( IO.read("spec/support/us_most_streamed.json")) }
     
     it "accepts one argument, a hash object" do
-      expect { spotify_chart.fetch_track_album_artist(us_most_streamed) }.to_not raise_error
+      expect { spotify_chart.get_first_track_info(us_most_streamed) }.to_not raise_error
     end
 
     it "returns a string" do
-      expect(spotify_chart.fetch_track_album_artist(us_most_streamed).class).to eq(String)
+      expect(spotify_chart.get_first_track_info(us_most_streamed).class).to eq(String)
     end
 
     it "returns '<song>' by <artist> from the album <album>" do
-      expect(spotify_chart.fetch_track_album_artist(us_most_streamed)).to eq("'All About That Bass' by Meghan Trainor from the album Title")
+      expect(spotify_chart.get_first_track_info(us_most_streamed)).to eq("'All About That Bass' by Meghan Trainor from the album Title")
     end
   end
 
