@@ -51,14 +51,4 @@ class SpotifyChart
     # hash that #get_json returns
   end
 
-  def most_shared(region)
-    # call on #get_url here, where preference is the string 'most_shared',
-    # and set it equal to a variable
-
-    # call on #get_json here, using the string that get_url returns
-    
-    # finally, call on #get_first_track_info using the 
-    # hash that #get_json returns
-  end
-
 end

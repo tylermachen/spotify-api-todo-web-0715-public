@@ -6,7 +6,7 @@ describe SpotifyChart do
     end
 
     it "sets a constant 'base_url' as the root url of the Spotify Chart API" do
-      expect(SpotifyChart::BASE_URL).to eq("http://charts.spotify.com/api/tracks/")
+      expect(SpotifyChart::BASE_URL).to eq("http://charts.spotify.com/api/tracks/most_streamed")
     end
   end
 
@@ -17,7 +17,6 @@ describe SpotifyChart do
       expect { spotify_chart.get_url("most_streamed", "us") }.to_not raise_error
     end
 
-    let(:us_most_shared)   { spotify_chart.get_url("most_shared",   "us") }
     let(:gb_most_streamed) { spotify_chart.get_url("most_streamed", "gb") }
 
     it "- returns a string" do
@@ -37,18 +36,11 @@ describe SpotifyChart do
       regex_results.each do |match|
         expect(match).to_not be_nil
       end
-
-      regex = /http:\/\/charts.spotify.com\/api\/tracks\/most_shared\//
-      regex_results = [regex.match(us_most_shared), /\/weekly\/latest/.match(us_most_shared), /us/.match(us_most_shared)]
-      regex_results.each do |match|
-        expect(match).to_not be_nil
-      end
     end
 
     it "- returns the correct url for querying the API based on 
       most shared/streamed and region abbreviation" do
       expect(gb_most_streamed).to eq("http://charts.spotify.com/api/tracks/most_streamed/gb/weekly/latest")
-      expect(us_most_shared).to eq("http://charts.spotify.com/api/tracks/most_shared/us/weekly/latest")
     end
   
   end
@@ -88,54 +80,24 @@ describe SpotifyChart do
 
   describe '#most_streamed' do
 
+    # v subbing out get_json method so that test can predict result v
+    class SpotifyChart
+      def get_json(arg)
+        JSON.parse( IO.read("spec/support/gb_most_streamed.json"))
+      end
+    end
+    # ^ subbing out get_json method so that test can predict result ^
+    
     it "accepts one argument, the region" do
       expect { spotify_chart.most_streamed("us") }.to_not raise_error
     end
 
     it "returns America's most streamed track title, artist, and album" do
-      # subbing out get_json method so that test can predict result
-      class SpotifyChart
-        def get_json(arg)
-          JSON.parse( IO.read("spec/support/us_most_streamed.json"))
-        end
-      end
       expect(SpotifyChart.new.most_streamed("us")).to eq("All About That Bass by Meghan Trainor from the album Title")
     end
 
     it "returns Great Britain's most streamed track title, artist, and album" do
-      # subbing out get_json method so that test can predict result
-      class SpotifyChart
-        def get_json(arg)
-          JSON.parse( IO.read("spec/support/gb_most_streamed.json"))
-        end
-      end
       expect(SpotifyChart.new.most_streamed("gb")).to eq("Prayer In C - Robin Schulz Radio Edit by Lilly Wood from the album Prayer In C")
-    end
-  end
-
-  describe '#most_shared' do
-    it "accepts one argument, the region" do
-      expect { spotify_chart.most_shared("us") }.to_not raise_error
-    end
-
-    it "returns America's most shared track title, artist, and album" do
-      # subbing out get_json method so that test can predict result
-      class SpotifyChart
-        def get_json(arg)
-          JSON.parse( IO.read("spec/support/us_most_shared.json"))
-        end
-      end
-      expect(spotify_chart.most_shared("us")).to eq("Shut Up and Dance by WALK THE MOON from the album Shut Up and Dance")
-    end
-
-    it "returns Great Britain's most shared track title, artist, and album" do
-      # subbing out get_json method so that test can predict result
-      class SpotifyChart
-        def get_json(arg)
-          JSON.parse( IO.read("spec/support/gb_most_shared.json"))
-        end
-      end
-      expect(spotify_chart.most_shared("gb")).to eq("Never Catch Me (feat. Kendrick Lamar) by Flying Lotus from the album Never Catch Me (feat. Kendrick Lamar)")
     end
   end
 
