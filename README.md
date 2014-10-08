@@ -24,8 +24,8 @@ Did your guess match the first track listed? Were you right? Do you think the to
 
 ## Instructions
 
-* Now that you've played around with an API a bit, it's time to write some code that will allow you to interact with these API sites in Ruby!
-* This is a test-driven lab so just get those specs to pass. Remember to start with the first specs then move to the later ones as they build on each other!
+* Now that you've played around with an API a bit, it's time to write some code that will allow you to interact with these API sites in Ruby.
+* This is a test-driven lab so just get those specs to pass. Remember to start with the first specs then move to the later ones as they build on each other.
 
 ## Help
 
