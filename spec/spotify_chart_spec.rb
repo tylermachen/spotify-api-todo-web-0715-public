@@ -81,8 +81,8 @@ describe SpotifyChart do
       expect(spotify_chart.get_first_track_info(us_most_streamed).class).to eq(String)
     end
 
-    it "returns '<song>' by <artist> from the album <album>" do
-      expect(spotify_chart.get_first_track_info(us_most_streamed)).to eq("'All About That Bass' by Meghan Trainor from the album Title")
+    it "returns <song> by <artist> from the album <album>" do
+      expect(spotify_chart.get_first_track_info(us_most_streamed)).to eq("All About That Bass by Meghan Trainor from the album Title")
     end
   end
 
@@ -99,7 +99,7 @@ describe SpotifyChart do
           JSON.parse( IO.read("spec/support/us_most_streamed.json"))
         end
       end
-      expect(SpotifyChart.new.most_streamed("us")).to eq("'All About That Bass' by Meghan Trainor from the album Title")
+      expect(SpotifyChart.new.most_streamed("us")).to eq("All About That Bass by Meghan Trainor from the album Title")
     end
 
     it "returns Great Britain's most streamed track title, artist, and album" do
@@ -109,7 +109,7 @@ describe SpotifyChart do
           JSON.parse( IO.read("spec/support/gb_most_streamed.json"))
         end
       end
-      expect(SpotifyChart.new.most_streamed("gb")).to eq("'Prayer In C - Robin Schulz Radio Edit' by Lilly Wood from the album Prayer In C")
+      expect(SpotifyChart.new.most_streamed("gb")).to eq("Prayer In C - Robin Schulz Radio Edit by Lilly Wood from the album Prayer In C")
     end
   end
 
@@ -125,7 +125,7 @@ describe SpotifyChart do
           JSON.parse( IO.read("spec/support/us_most_shared.json"))
         end
       end
-      expect(spotify_chart.most_shared("us")).to eq("'Shut Up and Dance' by WALK THE MOON from the album Shut Up and Dance")
+      expect(spotify_chart.most_shared("us")).to eq("Shut Up and Dance by WALK THE MOON from the album Shut Up and Dance")
     end
 
     it "returns Great Britain's most shared track title, artist, and album" do
@@ -135,7 +135,7 @@ describe SpotifyChart do
           JSON.parse( IO.read("spec/support/gb_most_shared.json"))
         end
       end
-      expect(spotify_chart.most_shared("gb")).to eq("'Never Catch Me (feat. Kendrick Lamar)' by Flying Lotus from the album Never Catch Me (feat. Kendrick Lamar)")
+      expect(spotify_chart.most_shared("gb")).to eq("Never Catch Me (feat. Kendrick Lamar) by Flying Lotus from the album Never Catch Me (feat. Kendrick Lamar)")
     end
   end
 
