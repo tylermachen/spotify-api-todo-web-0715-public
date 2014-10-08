@@ -5,8 +5,8 @@ class SpotifyChart
 
   BASE_URL = "?"
 
-  def get_url(preference, region)
-    # return a string that is the base url + preference + / + region + / + weekly + / + latest
+  def get_url(region)
+    # return a string that is the BASE_URL/region/weekly/latest
   end
 
   def get_json(url)
