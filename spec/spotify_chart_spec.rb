@@ -13,6 +13,7 @@ describe SpotifyChart do
   let(:spotify_chart) { SpotifyChart.new }
 
   describe "#get_url" do
+
     it "- accepts one argument, the desired region" do
       expect { spotify_chart.get_url("us") }.to_not raise_error
     end
@@ -77,16 +78,15 @@ describe SpotifyChart do
   end
 
   describe '#most_streamed' do
-    
-    # v subbing out get_json method so that test can predict result v
-    class SpotifyChart
-      def get_json(arg)
-        JSON.parse( IO.read("spec/support/gb_most_streamed.json"))
-      end
-    end
-    # ^ subbing out get_json method so that test can predict result ^
 
     it "accepts one argument, the region" do
+      # v subbing out get_json method so that test can predict result v
+      class SpotifyChart
+        def get_json(arg)
+          JSON.parse( IO.read("spec/support/us_most_streamed.json"))
+        end
+      end
+      # ^ subbing out get_json method so that test can predict result ^
       expect { spotify_chart.most_streamed("us") }.to_not raise_error
     end
 
@@ -102,6 +102,13 @@ describe SpotifyChart do
     end
 
     it "returns Great Britain's most streamed track title, artist, and album" do
+      # v subbing out get_json method so that test can predict result v
+      class SpotifyChart
+        def get_json(arg)
+          JSON.parse( IO.read("spec/support/gb_most_streamed.json"))
+        end
+      end
+      # ^ subbing out get_json method so that test can predict result ^
       expect(SpotifyChart.new.most_streamed("gb")).to eq("Prayer In C - Robin Schulz Radio Edit by Lilly Wood from the album Prayer In C")
     end
   end
