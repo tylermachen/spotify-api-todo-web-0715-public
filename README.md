@@ -6,6 +6,8 @@ resources: 3
 
 # Spotify's Chart API Todo
 
+![spotify logo](https://s3-us-west-2.amazonaws.com/web-dev-readme-photos/oo-labs/spotify.png)
+
 ## Objective
 
 Get more familiar with using APIs and their JSON contents in Ruby.
