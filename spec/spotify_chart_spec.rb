@@ -89,6 +89,34 @@ describe SpotifyChart do
       expect { spotify_chart.most_streamed("us") }.to_not raise_error
     end
 
+    it "calls on #get_url, passing it the region" do
+      region = "us"
+      url = spotify_chart.get_url(region)
+      expect(spotify_chart).to receive(:get_url).with(region).and_return(url)
+      spotify_chart.most_streamed(region)
+    end
+
+    it "passes #get_json the url that #get_url returns" do
+      region = "us"
+      url = spotify_chart.get_url(region)
+      json = spotify_chart.get_json(url)
+      expect(spotify_chart).to receive(:get_url).with(region).and_return(url)
+      expect(spotify_chart).to receive(:get_json).with(url).and_return(json)
+      spotify_chart.most_streamed(region)
+    end
+
+    it "passes #get_first_track_info the json that #get_json returns" do
+      region = "us"
+      url = spotify_chart.get_url(region)
+      json = spotify_chart.get_json(url)
+      info = spotify_chart.get_first_track_info(json)
+
+      expect(spotify_chart).to receive(:get_url).with(region).and_return(url)
+      expect(spotify_chart).to receive(:get_json).with(url).and_return(json)
+      expect(spotify_chart).to receive(:get_first_track_info).with(json).and_return(info)
+      spotify_chart.most_streamed(region)
+    end
+
     it "returns America's most streamed track title, artist, and album" do
       # v subbing out get_json method so that test can predict result v
       class SpotifyChart
