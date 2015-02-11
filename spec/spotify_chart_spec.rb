@@ -44,14 +44,15 @@ describe SpotifyChart do
   end
 
   describe "#get_json" do
-    let(:url) { "http://api.openweathermap.org/data/2.5/weather?q=NewYork" }
-    
+    let(:url) { "http://mimeocarlisting.azurewebsites.net/api/cars/1/2" }
+
     it "accepts one argument, a JSON url" do
       expect { spotify_chart.get_json(url) }.to_not raise_error
     end
 
-    it "returns a hash" do
-      expect(spotify_chart.get_json(url).class).to eq(Hash)
+    it "returns a hash or an array" do
+      type = [Hash, Array]
+      expect(spotify_chart.get_json(url).class).to satisfy{|c| type.include?(c)}
     end
 
     it "is the Ruby Hash version of JSON from a url" do
