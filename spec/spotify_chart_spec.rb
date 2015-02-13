@@ -63,7 +63,8 @@ describe SpotifyChart do
   describe "#get_first_track_info" do
      
     let(:us_most_streamed) { JSON.parse( IO.read("spec/support/us_most_streamed.json")) }
-    
+    let(:gb_most_streamed) { JSON.parse( IO.read("spec/support/gb_most_streamed.json")) }
+
     it "accepts one argument, a hash object" do
       expect { spotify_chart.get_first_track_info(us_most_streamed) }.to_not raise_error
     end
@@ -73,7 +74,8 @@ describe SpotifyChart do
     end
 
     it "returns <song> by <artist> from the album <album>" do
-      expect(spotify_chart.get_first_track_info(us_most_streamed)).to eq("All About That Bass by Meghan Trainor from the album Title")
+      expect(spotify_chart.get_first_track_info(us_most_streamed)).to eq("Uptown Funk by Mark Ronson from the album Uptown Funk")
+      expect(spotify_chart.get_first_track_info(gb_most_streamed)).to eq("Take Me To Church by Hozier from the album Hozier")      
     end
   end
 
@@ -126,7 +128,7 @@ describe SpotifyChart do
         end
       end
       # ^ subbing out get_json method so that test can predict result ^
-      expect(SpotifyChart.new.most_streamed("us")).to eq("All About That Bass by Meghan Trainor from the album Title")
+      expect(SpotifyChart.new.most_streamed("us")).to eq("Uptown Funk by Mark Ronson from the album Uptown Funk")
     end
 
     it "returns Great Britain's most streamed track title, artist, and album" do
@@ -137,7 +139,7 @@ describe SpotifyChart do
         end
       end
       # ^ subbing out get_json method so that test can predict result ^
-      expect(SpotifyChart.new.most_streamed("gb")).to eq("Prayer In C - Robin Schulz Radio Edit by Lilly Wood from the album Prayer In C")
+      expect(SpotifyChart.new.most_streamed("gb")).to eq("Take Me To Church by Hozier from the album Hozier")
     end
   end
 
